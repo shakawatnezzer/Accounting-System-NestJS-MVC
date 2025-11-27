@@ -2,6 +2,33 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AccountType {
+  code: String!
+  id: ID!
+  isActive: Boolean!
+  name: String!
+  type: String!
+}
+
+type AuthPayload {
+  accessToken: String!
+  tokenType: String!
+}
+
+input CreateAccountInput {
+  code: String!
+  name: String!
+  type: String!
+}
+
+input CreateJournalEntryInput {
+  account: String!
+  credit: Float!
+  date: DateTime
+  debit: Float!
+  description: String!
+}
+
 input CreateUserInput {
   email: String!
   fullName: String!
@@ -9,11 +36,40 @@ input CreateUserInput {
   role: String! = "VIEWER"
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type JournalEntryType {
+  account: String!
+  createdAt: DateTime
+  credit: Float!
+  date: DateTime!
+  debit: Float!
+  description: String!
+  id: ID!
+  updatedAt: DateTime
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
+  createAccount(input: CreateAccountInput!): AccountType!
+  createJournalEntry(input: CreateJournalEntryInput!): JournalEntryType!
   createUser(input: CreateUserInput!): UserType!
+  login(input: LoginInput!): AuthPayload!
 }
 
 type Query {
+  account(id: String!): AccountType
+  accounts: [AccountType!]!
+  journalEntries: [JournalEntryType!]!
+  journalEntriesByAccount(accountId: String!): [JournalEntryType!]!
+  me: UserType!
   users: [UserType!]!
 }
 
