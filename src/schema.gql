@@ -48,7 +48,7 @@ input CreateUserInput {
   email: String!
   fullName: String!
   password: String!
-  role: String! = "VIEWER"
+  role: String = "VIEWER"
 }
 
 """
