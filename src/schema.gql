@@ -15,6 +15,21 @@ type AuthPayload {
   tokenType: String!
 }
 
+type BalanceSheetAccount {
+  accountId: String!
+  balance: Float!
+  name: String!
+}
+
+type BalanceSheetType {
+  assets: [BalanceSheetAccount!]!
+  equity: [BalanceSheetAccount!]!
+  liabilities: [BalanceSheetAccount!]!
+  totalAssets: Float!
+  totalEquity: Float!
+  totalLiabilities: Float!
+}
+
 input CreateAccountInput {
   code: String!
   name: String!
@@ -52,6 +67,22 @@ type JournalEntryType {
   updatedAt: DateTime
 }
 
+type LedgerEntryType {
+  accountId: String
+  accountName: String
+  balance: Float!
+  credit: Float!
+  date: DateTime!
+  debit: Float!
+  description: String!
+}
+
+input LedgerInput {
+  accountId: String!
+  endDate: DateTime
+  startDate: DateTime
+}
+
 input LoginInput {
   email: String!
   password: String!
@@ -67,8 +98,10 @@ type Mutation {
 type Query {
   account(id: String!): AccountType
   accounts: [AccountType!]!
+  balanceSheet: BalanceSheetType!
   journalEntries: [JournalEntryType!]!
   journalEntriesByAccount(accountId: String!): [JournalEntryType!]!
+  ledger(input: LedgerInput!): [LedgerEntryType!]!
   me: UserType!
   users: [UserType!]!
 }

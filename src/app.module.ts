@@ -8,6 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './auth/auth.module';
 import { AccountsModule } from './Accounting/accounts/accounts.module';
 import { JournalModule } from './Accounting/Journal/journal.module';
+import { ReportModule } from './Accounting/reports/report.module';
 
 
 @Module({
@@ -18,6 +19,7 @@ import { JournalModule } from './Accounting/Journal/journal.module';
     AuthModule,
     AccountsModule,
     JournalModule,
+    ReportModule,
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
